@@ -28,14 +28,17 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
-      Counter 1 will store the memory from the incremented value every time it's invoked.
-      Counter 2 does not store the memory and will only ever log 0.
+      The only difference is counter1 has the count variable inside it's scope and counter2 is referencing a global variable.
+      They both return the same count++
   
   2. Which of the two uses a closure? How can you tell?
       They both use closure because they both access variables outside their scope.
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+
+     Counter1 is preferable if you want to protect the count variable from other functions using it.
+     Counter2 is better if you need to access the count variable from a different function.
 
 
 */
@@ -69,8 +72,8 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning() {
+    return Math.floor(Math.random() * 4);
 }
 
 
@@ -88,17 +91,26 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
-}
+function finalScore(callback, num) {
+  let home = 0, away = 0;
+  for (let i = 0; i < num; i++) {
+    home += callback();
+    away += callback();
+  }
+
+  return { 'Home': home, 'Away': away };
+ }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(callback) {
+  return {
+    'Home': callback(),
+    'Away': callback()
+  }
 }
 
 
